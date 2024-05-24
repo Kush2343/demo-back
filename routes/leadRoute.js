@@ -16,7 +16,7 @@ router.get('/', leadController.getAllLeads);
 router.delete('/lead/:id',adminAuth, leadController.deleteLeadById);
 
 // DELETE /leads/multiple - Delete multiple leads by IDs
-router.delete('/multiple', leadController.deleteMultipleLeads);
+// router.delete('/multiple', leadController.deleteMultipleLeads);
 
 router.put('/lead/:id',adminAuth, leadController.updateLead);
 // router.delete("/:id", adminAuth, leadController.deleteLeadById);
