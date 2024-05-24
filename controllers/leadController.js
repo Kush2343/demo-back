@@ -1,6 +1,6 @@
 const LeadData = require("../model/LeadData");
 const RemoteLeadData = require("../model/RemoteLeadData");
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 
 // Create a new lead
@@ -280,34 +280,34 @@ exports.getTechnology = async (req, res) => {
 };
 
 // Delete multiple leads by IDs
-// exports.deleteMultipleLeads = async (req, res) => {
-//     const { ids } = req.body;
+exports.deleteMultipleLeads = async (req, res) => {
+    const { ids } = req.body;
 
-//     try {
-//         // Check if IDs array is provided
-//         if (!ids || !Array.isArray(ids) || ids.length === 0) {
-//             return res.status(400).json({ message: "IDs array is required and must not be empty" });
-//         }
+    try {
+        // Check if IDs array is provided
+        if (!ids || !Array.isArray(ids) || ids.length === 0) {
+            return res.status(400).json({ message: "IDs array is required and must not be empty" });
+        }
 
-//         // Validate each ID
-//         const validIds = ids.filter(id => mongoose.Types.ObjectId.isValid(id));
+        // Validate each ID
+        const validIds = ids.filter(id => mongoose.Types.ObjectId.isValid(id));
 
-//         // Check if there are invalid IDs
-//         if (validIds.length !== ids.length) {
-//             return res.status(400).json({ message: "Selected at least one lead" });
-//         }
+        // Check if there are invalid IDs
+        if (validIds.length !== ids.length) {
+            return res.status(400).json({ message: "Selected at least one lead" });
+        }
 
-//         // Delete leads with the provided IDs
-//         const deletionResult = await LeadData.deleteMany({ _id: { $in: validIds } });
+        // Delete leads with the provided IDs
+        const deletionResult = await LeadData.deleteMany({ _id: { $in: validIds } });
 
-//         // Check if any leads were deleted
-//         if (deletionResult.deletedCount === 0) {
-//             return res.status(404).json({ message: "No leads found with the provided IDs" });
-//         }
+        // Check if any leads were deleted
+        if (deletionResult.deletedCount === 0) {
+            return res.status(404).json({ message: "No leads found with the provided IDs" });
+        }
 
-//         res.status(200).json({ message: `Deleted ${deletionResult.deletedCount} leads successfully` });
-//     } catch (err) {
-//         console.error("Error deleting multiple leads:", err);
-//         res.status(500).json({ message: "An error occurred while deleting leads" });
-//     }
-// };
+        res.status(200).json({ message: `Deleted ${deletionResult.deletedCount} leads successfully` });
+    } catch (err) {
+        console.error("Error deleting multiple leads:", err);
+        res.status(500).json({ message: "An error occurred while deleting leads" });
+    }
+};
